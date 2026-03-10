@@ -1,0 +1,206 @@
+@import "tailwindcss";
+
+@theme {
+  --color-deep-onyx: #1A1C19;
+  --color-alabaster: #F7F8F6;
+  --color-vitality-green: #96ad8f;
+  --color-wellness-dark: #2D332B;
+  --color-ruby-red: #ba1c1c;
+
+  --font-jakarta: "Plus Jakarta Sans", sans-serif;
+  --font-inter: "Inter", sans-serif;
+
+  --radius-button: 100px;
+}
+
+.top-accent-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4mm;
+  background-color: #96ad8f;
+  z-index: 100;
+}
+
+.hero-container {
+  position: relative;
+}
+
+.hero-container::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right,
+      rgba(0, 0, 0, 0.75) 0%,
+      rgba(0, 0, 0, 0.5) 40%,
+      rgba(0, 0, 0, 0.0) 65%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+:root {
+  --background: #FBFBFB;
+  --foreground: #050505;
+}
+
+.dark {
+  --background: #050505;
+  --foreground: #FBFBFB;
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+}
+
+html.lenis {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-jakarta);
+}
+
+/* Custom Utilities */
+.cinematic-text {
+  letter-spacing: -0.03em;
+  line-height: 0.85;
+}
+
+.glass-card {
+  background: rgba(40, 45, 40, 0.15);
+  background-clip: padding-box;
+  position: relative;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+  /* Split padding so Tailwind pb-10 can override bottom */
+  padding-top: 20px;
+  padding-left: 28px;
+  padding-right: 28px;
+  padding-bottom: 32px;
+  /* decreased bottom directly here */
+
+  max-width: 520px;
+  border: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1.5px;
+  /* border thickness */
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.7) 0%,
+      /* brighter top-left */
+      rgba(255, 255, 255, 0.2) 40%,
+      rgba(255, 255, 255, 0.08) 100%
+      /* faded bottom-right */
+    );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* REMOVE hover from .glass-card */
+.glass-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  /* NO transform here */
+}
+
+/* ADD this new class for the outer wrapper */
+.glass-card-wrapper {
+  position: relative;
+  max-width: 520px;
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.glass-card-wrapper:hover {
+  transform: translateY(-6px);
+}
+
+.glass-card h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+.glass-card p {
+  font-size: 16px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  /* remove ALL margins top and bottom */
+  padding: 0;
+}
+
+.button-premium {
+  @apply transition-all duration-300 ease-out hover:scale-105 active:scale-95;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.button-premium:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+  animation-play-state: running;
+  /* default state */
+}
