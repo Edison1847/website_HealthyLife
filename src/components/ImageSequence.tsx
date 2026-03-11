@@ -11,7 +11,7 @@ interface ImageSequenceProps {
     baseUrl: string;
     onProgress?: (progress: number) => void;
     onComplete?: () => void;
-    fit?: "cover" | "contain";
+    fit?: "cover" | "contain" | "none";
 }
 
 const ImageSequence = forwardRef<ImageSequenceRef, ImageSequenceProps>(
@@ -48,9 +48,9 @@ const ImageSequence = forwardRef<ImageSequenceRef, ImageSequenceProps>(
                                 context.fillStyle = '#ffffff';
                                 canvas.width = window.innerWidth;
                                 canvas.height = window.innerHeight;
-                                const scale = fit === "contain"
+                                const scale = fit === "none" ? 1 : (fit === "contain"
                                     ? Math.min(canvas.width / firstImg.width, canvas.height / firstImg.height)
-                                    : Math.max(canvas.width / firstImg.width, canvas.height / firstImg.height);
+                                    : Math.max(canvas.width / firstImg.width, canvas.height / firstImg.height));
                                 const x = (canvas.width / 2) - (firstImg.width / 2) * scale;
                                 const y = (canvas.height / 2) - (firstImg.height / 2) * scale;
                                 context.drawImage(firstImg, x, y, firstImg.width * scale, firstImg.height * scale);
@@ -81,9 +81,9 @@ const ImageSequence = forwardRef<ImageSequenceRef, ImageSequenceProps>(
             if (img && canvas.width > 0 && canvas.height > 0) {
                 // We purposefully do NOT use clearRect here to prevent black flickering 
                 // between frame drawing and GPU upload if the browser delays the paint.
-                const scale = fit === "contain"
+                const scale = fit === "none" ? 1 : (fit === "contain"
                     ? Math.min(canvas.width / img.width, canvas.height / img.height)
-                    : Math.max(canvas.width / img.width, canvas.height / img.height);
+                    : Math.max(canvas.width / img.width, canvas.height / img.height));
                 const x = (canvas.width / 2) - (img.width / 2) * scale;
                 const y = (canvas.height / 2) - (img.height / 2) * scale;
 

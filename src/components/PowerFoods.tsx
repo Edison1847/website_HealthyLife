@@ -59,40 +59,7 @@ export default function PowerFoods() {
     useGSAP(() => {
         if (!isLoaded || !containerRef.current || !pomegranateRef.current) return;
 
-        // 1. Particle creation & floating logic
-        const particlesContainer = particlesContainerRef.current;
-        if (particlesContainer) {
-            // Create 30 particles
-            for (let i = 0; i < 30; i++) {
-                const p = document.createElement('div');
-                p.className = 'absolute w-1.5 h-1.5 rounded-full bg-vitality-green blur-[1px] opacity-0 mix-blend-screen';
-
-                // Random starting positions
-                const startX = Math.random() * window.innerWidth;
-                const startY = window.innerHeight + (Math.random() * 200);
-
-                gsap.set(p, { x: startX, y: startY });
-                particlesContainer.appendChild(p);
-
-                // Animate them floating up, drifting left, and changing color
-                gsap.to(p, {
-                    y: startY - window.innerHeight - (Math.random() * 300),
-                    x: startX - (Math.random() * 400),
-                    opacity: Math.random() * 0.8 + 0.2, // Random max opacity
-                    backgroundColor: '#ba1c1c', // Change from green to ruby-red
-                    duration: 2 + Math.random() * 3,
-                    ease: "sine.inOut",
-                    scrollTrigger: {
-                        trigger: containerRef.current,
-                        start: "top bottom", // Start when section enters
-                        end: "top top",      // End when pinned
-                        scrub: 1,
-                    }
-                });
-            }
-        }
-
-        // 2. Main ScrollTrigger Timeline for the Section
+        // 1. Main ScrollTrigger Timeline for the Section
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: containerRef.current,
@@ -104,6 +71,37 @@ export default function PowerFoods() {
             }
         });
 
+        // 2. Particle creation & floating logic
+        const particlesContainer = particlesContainerRef.current;
+        if (particlesContainer) {
+            // Create 50 particles, with a bias towards the bottom right
+            for (let i = 0; i < 50; i++) {
+                const p = document.createElement('div');
+                p.className = 'absolute w-1.5 h-1.5 rounded-full bg-vitality-green blur-[1px] opacity-0 mix-blend-screen';
+
+                // Bias towards the right side (70% chance to spawn on the right half)
+                const isRightBiased = Math.random() > 0.3;
+                const startX = isRightBiased
+                    ? (window.innerWidth * 0.5) + (Math.random() * (window.innerWidth * 0.5))
+                    : Math.random() * window.innerWidth;
+
+                // Start slightly below the screen
+                const startY = window.innerHeight + (Math.random() * 300);
+
+                gsap.set(p, { x: startX, y: startY });
+                particlesContainer.appendChild(p);
+
+                // Animate them floating up, drifting left, and changing color
+                // Tied to the main scroll timeline `tl`
+                tl.to(p, {
+                    y: startY - window.innerHeight - (Math.random() * 500) - 200, // Move past the screen
+                    x: startX - (Math.random() * 400),
+                    opacity: Math.random() * 0.8 + 0.2, // Random max opacity
+                    backgroundColor: '#ba1c1c', // Change from green to ruby-red
+                    ease: "power1.out",
+                }, 0); // The '0' joins it to the start of the timeline
+            }
+        }
         // 3. Cinematic Image Sequence playback with "Slow-Mo Trick"
         // Total frames = 91 (index 0 to 90)
         // Let's assume the "cracking open" burst happens around frame 40-50.
@@ -150,7 +148,15 @@ export default function PowerFoods() {
         // 5. Text & Card Reveal (Staggered)
         // Initial state
         gsap.set([titleRef.current, subtitleRef.current], { opacity: 0, y: 50 });
-        gsap.set([card1Ref.current, card2Ref.current, card3Ref.current], { opacity: 0, y: 70 });
+        gsap.set([card1Ref.current, card2Ref.current, card3Ref.current], {
+            opacity: 0,
+            y: 100,
+            rotationX: "random(-140, 140)",
+            rotationY: "random(-140, 140)",
+            rotationZ: "random(-30, 30)",
+            scale: 0.5,
+            transformPerspective: 1200
+        });
 
         // Fade in title and subtitle somewhat early in the timeline
         tl.to([titleRef.current, subtitleRef.current], {
@@ -165,8 +171,15 @@ export default function PowerFoods() {
         tl.to([card1Ref.current, card2Ref.current, card3Ref.current], {
             opacity: 1,
             y: 0,
-            duration: 0.3,
-            stagger: 0.08,
+            rotationX: 0,
+            rotationY: 0,
+            rotationZ: 0,
+            scale: 1,
+            duration: 0.4,
+            stagger: {
+                each: 0.08,
+                from: "random" // Randomly reveal them
+            },
             ease: "back.out(1.2)" // Premium elastic feel
         }, 0.25);
 
@@ -178,11 +191,9 @@ export default function PowerFoods() {
     }, { scope: containerRef, dependencies: [isLoaded] });
 
     return (
-        <section ref={containerRef} className="relative min-h-[150vh] w-full bg-deep-onyx overflow-hidden">
-            {/* Dynamic Background Transition Container - Black base with subtle radial gradient */}
-            <div className="absolute inset-0 z-0 bg-deep-onyx overflow-hidden">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(186,28,28,0.08)_0%,rgba(26,28,25,1)_60%)] pointer-events-none" />
-            </div>
+        <section ref={containerRef} className="relative min-h-[150vh] w-full bg-black overflow-hidden">
+            {/* Background - Plain Black */}
+            <div className="absolute inset-0 z-0 bg-black" />
 
             {/* Particles Transition Container from Section 2 */}
             <div ref={particlesContainerRef} className="absolute inset-0 z-10 pointer-events-none overflow-hidden" />
@@ -197,14 +208,14 @@ export default function PowerFoods() {
 
                     <div
                         ref={pomegranateRef}
-                        className="relative w-full h-full max-h-[800px] flex items-center justify-center transform perspective-[1000px]"
+                        className="relative w-full h-full flex items-center justify-center transform perspective-[1000px]"
                     >
                         <ImageSequence
                             ref={sequenceRef}
                             frameCount={91}
                             baseUrl="/animations/food_promo"
                             onComplete={handleSequenceComplete}
-                            fit="contain"
+                            fit="none"
                         />
                     </div>
                 </div>
@@ -255,7 +266,7 @@ export default function PowerFoods() {
             </div>
 
             {/* Loading Cover while images load */}
-            <div className={`fixed inset-0 z-50 bg-deep-onyx transition-opacity duration-1000 pointer-events-none ${isLoaded ? 'opacity-0' : 'opacity-100'}`} />
+            <div className={`fixed inset-0 z-50 bg-black transition-opacity duration-1000 pointer-events-none ${isLoaded ? 'opacity-0' : 'opacity-100'}`} />
         </section>
     );
 }
