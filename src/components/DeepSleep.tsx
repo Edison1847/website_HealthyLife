@@ -91,10 +91,10 @@ export default function DeepSleep() {
             scrollTrigger: {
                 trigger: containerRef.current,
                 start: "top top",
-                end: "+=500%", // 5 screens of scrolling
+                end: "+=150%", // Tighter transition
                 scrub: 1,
                 pin: true,
-                markers: true,
+                markers: true, // DEBUG
                 anticipatePin: 1,
                 invalidateOnRefresh: true,
             }

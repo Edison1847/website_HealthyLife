@@ -44,10 +44,9 @@ export default function Hero() {
             scrollTrigger: {
                 trigger: containerRef.current,
                 start: "top top",
-                end: "+=200%",
+                end: "+=100%",
                 scrub: 0.5,
                 pin: true,
-                markers: true,
                 anticipatePin: 1,
                 onUpdate: (self) => {
                     // Map the animation progress directly to the scroll progress

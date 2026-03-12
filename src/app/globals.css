@@ -86,6 +86,25 @@ body {
   overflow-x: hidden;
 }
 
+/* Debug Ruler: Red line every 100vh */
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20000px; /* Long enough */
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 0, 0, 0.3) 0px,
+    rgba(255, 0, 0, 0.3) 2px,
+    transparent 2px,
+    transparent 100vh
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
 h1,
 h2,
 h3,
