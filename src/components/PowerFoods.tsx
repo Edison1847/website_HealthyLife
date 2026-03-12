@@ -176,6 +176,15 @@ export default function PowerFoods() {
             ease: "back.out(1.2)"
         }, 0.8);
 
+        // Crucial: After animations are set and isLoaded is complete, refresh all triggers
+        // This ensures the Contact Section below gets its start markers calculated natively 
+        // after this section applies its pinning spacer.
+        if (isLoaded) {
+            setTimeout(() => {
+                ScrollTrigger.refresh();
+            }, 100);
+        }
+
     }, { scope: containerRef, dependencies: [isLoaded] });
 
     return (

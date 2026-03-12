@@ -2,6 +2,8 @@ import LenisScroll from "@/components/LenisScroll";
 import Hero from "@/components/Hero";
 import DeepSleep from "@/components/DeepSleep";
 import PowerFoods from "@/components/PowerFoods";
+import ContactSection from "@/components/ContactSection";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -15,6 +17,10 @@ export default function Home() {
 
         {/* Section 3: Next (Black) */}
         <PowerFoods />
+
+        <ContactSection />
+        
+        <Footer />
       </main>
     </LenisScroll>
   );
