@@ -86,7 +86,6 @@ export default function PowerFoods() {
                 end: "+=250%", // Faster scroll distance
                 scrub: 0.2, // Snappier catch-up
                 pin: true,
-                markers: true, // DEBUG
                 anticipatePin: 1,
             }
         });

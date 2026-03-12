@@ -94,7 +94,6 @@ export default function DeepSleep() {
                 end: "+=150%", // Tighter transition
                 scrub: 1,
                 pin: true,
-                markers: true, // DEBUG
                 anticipatePin: 1,
                 invalidateOnRefresh: true,
             }

@@ -84,13 +84,13 @@ export default function ContactSection() {
         }
 
         // Footer transition effect (darken background & fade particles)
-        // Triggered when scrolling past the section
+        // Happens as the section is being scrolled up/out
         gsap.to(containerRef.current, {
             backgroundColor: "#f4f7f5",
             scrollTrigger: {
                 trigger: containerRef.current,
-                start: "bottom 100%", // Bottom of section hits bottom of viewport
-                end: "+=250",
+                start: "bottom bottom", // Start when section bottom hits viewport bottom
+                end: "bottom center", // Finish when section bottom is at middle
                 scrub: true,
             }
         });
@@ -99,8 +99,8 @@ export default function ContactSection() {
             opacity: 0,
             scrollTrigger: {
                 trigger: containerRef.current,
-                start: "bottom 95%",
-                end: "+=200",
+                start: "bottom bottom",
+                end: "bottom center",
                 scrub: true,
             }
         });
