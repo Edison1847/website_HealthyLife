@@ -148,13 +148,6 @@ project/
 - Improve **mobile gesture interactions**
 - Expand into a **full wellness education platform**
 
----
-
-# 📖 Full Case Study
-
-Read the detailed design and development process here:
-
-👉 **[Add your case study link here]**
 
 ---
 
