@@ -68,7 +68,6 @@ Each section transitions smoothly to the next, creating a **cohesive storytellin
 
 ### Design Tools
 
-- AI-assisted design ideation
 - Modern UI/UX design principles
 - Visual storytelling layout strategy
 
@@ -80,23 +79,28 @@ Each section transitions smoothly to the next, creating a **cohesive storytellin
 ---
 
 # 🎥 Live Interaction Demo
-
+![Live recording](recordings/Sequence_01_1.mp4)
 
 ---
 
 # 📸 Screenshots
 
+
 ### Hero Section
 ![Hero Section](public/images/common/landingPage.png)
+
 
 ### Sleep Science Section
 ![Sleep science Section](public/images/common/sleepingPage.png)
 
+
 ### Nutrition Section
 ![Nutrition Section](public/images/common/nutritionPage.png)
 
+
 ### Contact Section
 ![Content Section](public/images/common/contactPage.png)
+
 
 ---
 
