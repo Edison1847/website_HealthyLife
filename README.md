@@ -87,16 +87,16 @@ Each section transitions smoothly to the next, creating a **cohesive storytellin
 # 📸 Screenshots
 
 ### Hero Section
-
+![Hero Section](public/images/common/landingPage.png)
 
 ### Sleep Science Section
-
+![Sleep science Section](public/images/common/sleepingPage.png)
 
 ### Nutrition Section
-
+![Nutrition Section](public/images/common/nutritionPage.png)
 
 ### Contact Section
-
+![Content Section](public/images/common/contactPage.png)
 
 ---
 
