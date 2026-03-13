@@ -79,7 +79,7 @@ Each section transitions smoothly to the next, creating a **cohesive storytellin
 ---
 
 # 🎥 Live Interaction Demo
-![Live recording](recordings/Sequence_01_1.mp4)
+![Live recording](recordings/Sequence_01_1.gif)
 
 ---
 
