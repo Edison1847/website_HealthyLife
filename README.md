@@ -120,3 +120,47 @@ Each section transitions smoothly to the next, creating a **cohesive storytellin
 ---
 
 # 📂 Project Structure
+```
+project/
+│
+├── index.html
+├── style.css
+├── script.js
+│
+├── assets/
+│ ├── images/
+│ ├── animations/
+```
+
+
+---
+
+# 🚀 Future Improvements
+
+- Integrate **GSAP ScrollTrigger** for advanced scroll animation control
+- Add **interactive nutrition data visualizations**
+- Implement **AI-powered wellness recommendations**
+- Improve **mobile gesture interactions**
+- Expand into a **full wellness education platform**
+
+---
+
+# 📖 Full Case Study
+
+Read the detailed design and development process here:
+
+👉 **[Add your case study link here]**
+
+---
+
+## License
+
+MIT License — free to use, fork, and modify for personal or commercial projects.
+
+---
+
+<div align="center">
+
+**Built by Dilshan Ganepola — MSc Health Informatics | MRCGP | US Patent Holder**  
+General Physician & Healthcare AI Consultant
+</div>
