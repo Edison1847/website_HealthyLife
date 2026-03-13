@@ -14,6 +14,11 @@ This project demonstrates how **interactive design can transform health educatio
 
 ---
 
+# 🎥 Live Interaction Demo
+![Live recording](recordings/Sequence_01_1.gif)
+
+---
+
 # 🎯 Problem Statement
 
 Many health and wellness websites present valuable information using **static layouts and large blocks of text**, which often results in:
@@ -78,10 +83,6 @@ Each section transitions smoothly to the next, creating a **cohesive storytellin
 
 ---
 
-# 🎥 Live Interaction Demo
-![Live recording](recordings/Sequence_01_1.gif)
-
----
 
 # 📸 Screenshots
 
