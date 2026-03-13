@@ -237,7 +237,7 @@ export default function PowerFoods() {
                             className="text-4xl md:text-5xl lg:text-6xl font-bold font-jakarta leading-tight mb-4 text-white"
                         >
                             Nature's <br className="hidden md:block" />
-                            <span className="bg-clip-text text-transparent bg-gradient-to-b from-[#7fd68a] to-[#96ad8f] cinematic-text drop-shadow-[0_0_15px_rgba(127,214,138,0.2)] tracking-wider">
+                            <span className="text-[#96ad8f]">
                                 POWER FOODS
                             </span>
                         </h2>

@@ -1,10 +1,11 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import gsap from "gsap";
+import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+// This line must run BEFORE useGSAP
 gsap.registerPlugin(ScrollTrigger);
 
 // Particle Component for subtle background motion
@@ -18,7 +19,7 @@ const Particles = () => {
             {[...Array(25)].map((_, i) => (
                 <div 
                     key={i}
-                    className="absolute bg-[#55c58a] rounded-full animate-float-particle"
+                    className="absolute bg-[#96ad8f] rounded-full animate-float-particle"
                     style={{
                         left: `${Math.random() * 100}%`,
                         top: `${Math.random() * 100 + 100}%`,
@@ -38,17 +39,32 @@ export default function ContactSection() {
     const containerRef = useRef<HTMLDivElement>(null);
     const cardRef = useRef<HTMLDivElement>(null);
     const infoRef = useRef<HTMLDivElement>(null);
+    const cardWrapRef = useRef<HTMLDivElement>(null);
     const [isRipple, setIsRipple] = useState(false);
 
     useGSAP(() => {
         if (!containerRef.current) return;
+
+        // Force ScrollTrigger to recalculate all positions after a paint cycle
+        const rafId = requestAnimationFrame(() => {
+            ScrollTrigger.refresh();
+        });
 
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: containerRef.current,
                 start: "top 75%",
                 toggleActions: "play none none reverse",
-            }
+                invalidateOnRefresh: true,
+            },
+            // Add breathe class AFTER entrance completes
+            onComplete: () => {
+                cardWrapRef.current?.classList.add("animate-breathe");
+            },
+            // Remove it when timeline reverses
+            onReverseComplete: () => {
+                cardWrapRef.current?.classList.remove("animate-breathe");
+            },
         });
 
         // Entrance animations
@@ -83,14 +99,13 @@ export default function ContactSection() {
             }
         }
 
-        // Footer transition effect (darken background & fade particles)
-        // Happens as the section is being scrolled up/out
+        // Footer transition effect
         gsap.to(containerRef.current, {
             backgroundColor: "#f4f7f5",
             scrollTrigger: {
                 trigger: containerRef.current,
-                start: "bottom bottom", // Start when section bottom hits viewport bottom
-                end: "bottom center", // Finish when section bottom is at middle
+                start: "bottom bottom",
+                end: "bottom center",
                 scrub: true,
             }
         });
@@ -104,6 +119,8 @@ export default function ContactSection() {
                 scrub: true,
             }
         });
+
+        return () => cancelAnimationFrame(rafId);
 
     }, { scope: containerRef });
 
@@ -120,10 +137,10 @@ export default function ContactSection() {
             <div className="max-w-[1100px] w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-32 items-center relative z-10">
                 
                 {/* LEFT SIDE - CONTACT CARD */}
-                <div ref={cardRef} className="max-w-[480px] w-full">
-                    <div className="bg-[#3b4148] rounded-[24px] p-6 md:p-8 shadow-2xl relative overflow-hidden group w-full animate-breathe">
+                <div ref={cardWrapRef} className="max-w-[480px] w-full">
+                    <div ref={cardRef} className="bg-[#3b4148] rounded-[24px] p-6 md:p-8 shadow-2xl relative overflow-hidden group w-full">
                     {/* Badge */}
-                    <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white/80 text-xs font-medium mb-4">
+                    <div className="inline-block px-4 py-1.5 rounded-full bg-[#96ad8f]/30 text-white text-sm font-light mb-4 border border-[#96ad8f]/20">
                         Contact
                     </div>
 
@@ -142,7 +159,7 @@ export default function ContactSection() {
                             { label: "Subject", type: "text" }
                         ].map((field, idx) => (
                             <div key={idx} className="relative group/input pb-1 cursor-text">
-                                <label className="block text-white/60 text-sm mb-1 transition-colors duration-300 ease-out group-focus-within/input:text-[#55c58a]">
+                                <label className="block text-white/60 text-sm mb-1 transition-colors duration-300 ease-out group-focus-within/input:text-[#96ad8f]">
                                     {field.label}
                                 </label>
                                 <input 
@@ -150,25 +167,25 @@ export default function ContactSection() {
                                     className="w-full bg-transparent border-b border-white/20 py-1 text-white outline-none transition-colors peer"
                                 />
                                 {/* Expanding animated underline */}
-                                <div className="absolute bottom-1 left-0 w-0 h-[1.5px] bg-[#55c58a] shadow-[0_0_8px_rgba(85,197,138,0.5)] transition-all duration-300 ease-out group-focus-within/input:w-full"></div>
+                                <div className="absolute bottom-1 left-0 w-0 h-[1.5px] bg-[#96ad8f] shadow-[0_0_8px_rgba(150,173,143,0.5)] transition-all duration-300 ease-out group-focus-within/input:w-full"></div>
                             </div>
                         ))}
 
                         <div className="relative group/input pb-1 cursor-text">
-                            <label className="block text-white/60 text-sm mb-1 transition-colors duration-300 ease-out group-focus-within/input:text-[#55c58a]">
+                            <label className="block text-white/60 text-sm mb-1 transition-colors duration-300 ease-out group-focus-within/input:text-[#96ad8f]">
                                 Message
                             </label>
                             <textarea 
                                 rows={2}
                                 className="w-full bg-transparent border-b border-white/20 py-1 text-white outline-none transition-colors resize-none peer"
                             />
-                            <div className="absolute bottom-1 left-0 w-0 h-[1.5px] bg-[#55c58a] shadow-[0_0_8px_rgba(85,197,138,0.5)] transition-all duration-300 ease-out group-focus-within/input:w-full"></div>
+                            <div className="absolute bottom-1 left-0 w-0 h-[1.5px] bg-[#96ad8f] shadow-[0_0_8px_rgba(150,173,143,0.5)] transition-all duration-300 ease-out group-focus-within/input:w-full"></div>
                         </div>
 
                         <button 
                             type="button" 
                             onClick={handleButtonClick}
-                            className="relative overflow-hidden w-full py-3 mt-4 rounded-full bg-gradient-to-r from-[#61cc7e] to-[#36a188] hover:from-[#72d48d] hover:to-[#40b89d] text-white font-medium text-sm hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(85,197,138,0.5)] active:scale-[0.98] transition-all duration-300 pointer-events-auto"
+                            className="relative overflow-hidden w-full py-3 mt-4 rounded-full bg-[#96ad8f] hover:from-[#72d48d] hover:to-[#40b89d] text-white font-medium text-sm hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(85,197,138,0.5)] active:scale-[0.98] transition-all duration-300 pointer-events-auto"
                         >
                             <span className="relative z-10">Send Message</span>
                             {/* Ripple Effect */}
@@ -195,39 +212,39 @@ export default function ContactSection() {
                     <div className="space-y-8">
                         {/* Phone */}
                         <div className="info-item flex items-start gap-4 group cursor-pointer">
-                            <div className="w-10 h-10 rounded-xl bg-[#f2f4f6] flex items-center justify-center flex-shrink-0 group-hover:bg-[#e8f0ea] group-hover:shadow-[0_0_12px_rgba(85,197,138,0.2)] transition-all duration-300">
-                                <svg className="w-5 h-5 text-[#515860] group-hover:text-[#55c58a] group-hover:rotate-[5deg] transition-all duration-300 ease-out" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <div className="w-10 h-10 rounded-xl bg-[#f2f4f6] flex items-center justify-center flex-shrink-0 group-hover:bg-[#e8f0ea] group-hover:shadow-[0_0_12px_rgba(150,173,143,0.2)] transition-all duration-300">
+                                <svg className="w-5 h-5 text-[#515860] group-hover:text-[#96ad8f] group-hover:rotate-[5deg] transition-all duration-300 ease-out" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                 </svg>
                             </div>
                             <div>
-                                <h4 className="font-semibold text-[#202428] text-sm mb-1 group-hover:text-[#36a188] transition-colors duration-300">Phone</h4>
+                                <h4 className="font-semibold text-[#202428] text-sm mb-1 group-hover:text-[#96ad8f] transition-colors duration-300">Phone</h4>
                                 <p className="text-[#5a6268] text-sm transition-colors duration-300 group-hover:text-[#6a7278]">___ 77 123 4567</p>
                             </div>
                         </div>
 
                         {/* Email */}
                         <div className="info-item flex items-start gap-4 group cursor-pointer">
-                            <div className="w-10 h-10 rounded-xl bg-[#f2f4f6] flex items-center justify-center flex-shrink-0 group-hover:bg-[#e8f0ea] group-hover:shadow-[0_0_12px_rgba(85,197,138,0.2)] transition-all duration-300">
-                                <svg className="w-5 h-5 text-[#515860] group-hover:text-[#55c58a] group-hover:rotate-[5deg] transition-all duration-300 ease-out" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <div className="w-10 h-10 rounded-xl bg-[#f2f4f6] flex items-center justify-center flex-shrink-0 group-hover:bg-[#e8f0ea] group-hover:shadow-[0_0_12px_rgba(150,173,143,0.2)] transition-all duration-300">
+                                <svg className="w-5 h-5 text-[#515860] group-hover:text-[#96ad8f] group-hover:rotate-[5deg] transition-all duration-300 ease-out" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                 </svg>
                             </div>
                             <div>
-                                <h4 className="font-semibold text-[#202428] text-sm mb-1 group-hover:text-[#36a188] transition-colors duration-300">Email</h4>
+                                <h4 className="font-semibold text-[#202428] text-sm mb-1 group-hover:text-[#96ad8f] transition-colors duration-300">Email</h4>
                                 <p className="text-[#5a6268] text-sm transition-colors duration-300 group-hover:text-[#6a7278]">support@__________.com</p>
                             </div>
                         </div>
 
                         {/* Office Hours */}
                         <div className="info-item flex items-start gap-4 group cursor-pointer">
-                            <div className="w-10 h-10 rounded-xl bg-[#f2f4f6] flex items-center justify-center flex-shrink-0 group-hover:bg-[#e8f0ea] group-hover:shadow-[0_0_12px_rgba(85,197,138,0.2)] transition-all duration-300">
-                                <svg className="w-5 h-5 text-[#515860] group-hover:text-[#55c58a] group-hover:rotate-[5deg] transition-all duration-300 ease-out" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <div className="w-10 h-10 rounded-xl bg-[#f2f4f6] flex items-center justify-center flex-shrink-0 group-hover:bg-[#e8f0ea] group-hover:shadow-[0_0_12px_rgba(150,173,143,0.2)] transition-all duration-300">
+                                <svg className="w-5 h-5 text-[#515860] group-hover:text-[#96ad8f] group-hover:rotate-[5deg] transition-all duration-300 ease-out" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                             </div>
                             <div className="w-full">
-                                <h4 className="font-semibold text-[#202428] text-sm mb-1.5 group-hover:text-[#36a188] transition-colors duration-300">Office Hours</h4>
+                                <h4 className="font-semibold text-[#202428] text-sm mb-1.5 group-hover:text-[#96ad8f] transition-colors duration-300">Office Hours</h4>
                                 <div className="space-y-1 w-full max-w-[280px]">
                                     <div className="flex justify-between w-full">
                                         <span className="text-[#5a6268] text-sm transition-colors duration-300 group-hover:text-[#6a7278]">Monday – Friday</span>

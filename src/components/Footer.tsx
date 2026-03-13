@@ -45,7 +45,7 @@ export default function Footer() {
             {/* Soft horizontal gradient line briefly above footer */}
             <div 
                 ref={lineRef} 
-                className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-4xl h-[1px] bg-gradient-to-r from-transparent via-[#55c58a]/40 to-transparent"
+                className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 max-w-4xl h-[1px] bg-gradient-to-r from-transparent via-[#96ad8f]/40 to-transparent"
             />
 
             <div ref={contentRef} className="max-w-[1100px] mx-auto px-4 md:px-8 lg:px-16 flex flex-col md:flex-row justify-between items-center md:items-start gap-8">
@@ -62,15 +62,15 @@ export default function Footer() {
                 <div className="flex flex-wrap justify-center gap-8 md:gap-16">
                     <div className="flex flex-col gap-3 text-center md:text-left">
                         <h3 className="font-semibold text-[#202428] text-sm mb-1">Company</h3>
-                        <a href="#" className="text-[#5a6268] text-sm hover:text-[#55c58a] transition-colors duration-300">About Us</a>
-                        <a href="#" className="text-[#5a6268] text-sm hover:text-[#55c58a] transition-colors duration-300">Careers</a>
-                        <a href="#" className="text-[#5a6268] text-sm hover:text-[#55c58a] transition-colors duration-300">Contact</a>
+                        <a href="#" className="text-[#5a6268] text-sm hover:text-[#96ad8f] transition-colors duration-300">About Us</a>
+                        <a href="#" className="text-[#5a6268] text-sm hover:text-[#96ad8f] transition-colors duration-300">Careers</a>
+                        <a href="#" className="text-[#5a6268] text-sm hover:text-[#96ad8f] transition-colors duration-300">Contact</a>
                     </div>
                     <div className="flex flex-col gap-3 text-center md:text-left">
                         <h3 className="font-semibold text-[#202428] text-sm mb-1">Resources</h3>
-                        <a href="#" className="text-[#5a6268] text-sm hover:text-[#55c58a] transition-colors duration-300">Blog</a>
-                        <a href="#" className="text-[#5a6268] text-sm hover:text-[#55c58a] transition-colors duration-300">Wellness Guide</a>
-                        <a href="#" className="text-[#5a6268] text-sm hover:text-[#55c58a] transition-colors duration-300">FAQs</a>
+                        <a href="#" className="text-[#5a6268] text-sm hover:text-[#96ad8f] transition-colors duration-300">Blog</a>
+                        <a href="#" className="text-[#5a6268] text-sm hover:text-[#96ad8f] transition-colors duration-300">Wellness Guide</a>
+                        <a href="#" className="text-[#5a6268] text-sm hover:text-[#96ad8f] transition-colors duration-300">FAQs</a>
                     </div>
                 </div>
 
@@ -81,7 +81,7 @@ export default function Footer() {
                             <a 
                                 key={i} 
                                 href="#" 
-                                className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-[#5a6268] hover:text-[#55c58a] hover:shadow-[0_0_12px_rgba(85,197,138,0.2)] hover:scale-105 transition-all duration-300"
+                                className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm text-[#5a6268] hover:text-[#96ad8f] hover:shadow-[0_0_12px_rgba(150,173,143,0.2)] hover:scale-105 transition-all duration-300"
                             >
                                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                     <circle cx="12" cy="12" r="10" />
